@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Boss from "../assets/boss-hog.png";
 import BabyHog from "./BabyHog";
-// import offspring from "../data.js"
+import offspring from "../data.js";
 
 function HogBoss() {
   const [eyeColor, setEyeColor] = useState("blue");
@@ -10,12 +10,22 @@ function HogBoss() {
     setEyeColor(e.target.value);
   }
 
+  const babies = offspring.map((hog) => (
+    <BabyHog
+      key={hog.id}
+      name={hog.name}
+      hobby={hog.hobby}
+      eyeColor={eyeColor}
+    />
+  ));
+
   return (
     <div>
       <input
         type="radio"
         name="eyeColor"
         value="blue"
+        checked={eyeColor === "blue"}
         onChange={handleChangeEyeColor}
       />
       Blue<br></br>
@@ -23,6 +33,7 @@ function HogBoss() {
         type="radio"
         name="eyeColor"
         value="sun"
+        checked={eyeColor === "sun"}
         onChange={handleChangeEyeColor}
       />
       Sun<br></br>
@@ -30,6 +41,7 @@ function HogBoss() {
         type="radio"
         name="eyeColor"
         value="glowing"
+        checked={eyeColor === "glowing"}
         onChange={handleChangeEyeColor}
       />
       Glowing<br></br>
@@ -39,11 +51,7 @@ function HogBoss() {
       <div id="boss-domicile">
         <img id="boss-blaster" src={Boss} alt="" />
       </div>
-      <ul className="hoglist">
-        <BabyHog />
-        <BabyHog />
-        <BabyHog />
-      </ul>
+      <ul className="hoglist">{babies}</ul>
     </div>
   );
 }
